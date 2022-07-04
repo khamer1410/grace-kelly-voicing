@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grace Kelly chorus voicing 🎵</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Mika - Grace Kelly voicing</h1>
+    <button onclick="playAll();" type="button">PLAY</button>
+    <button onclick="muteAll();" type="button">MUTE</button>
+    <section id="wrapper" class="audio-wrapper"></section>
+  </body>
+  <script>
+    // create audio via js
+    const container = document.querySelector("#wrapper");
+    let isPlaying = false;
+    function createAudio(src) {
+      const audio = document.createElement("audio");
+      audio.src = src;
+      audio.controls = true;
+      container.appendChild(audio);
+    }
+
+    createAudio("GraceKelly-test.mp3");
+    createAudio("GraceKelly-test.mp3");
+    // createAudio("./GraceKelly.mp3");
+    const audios = document.querySelectorAll("audio");
+    // main button to play all tracks
+    function playAll() {
+      if (!isPlaying) {
+        isPlaying = true;
+        audios.forEach((audio) => audio.play());
+      } else {
+        isPlaying = false;
+        audios.forEach((audio) => audio.pause());
+      }
+    }
+
+    function muteAll() {
+      audios.forEach((audio) => (audio.muted = true));
+    }
+    // each track has a mute button
+  </script>
+</html>
