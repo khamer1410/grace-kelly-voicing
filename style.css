@@ -1,5 +1,37 @@
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-image: url("https://media.npr.org/assets/music/news/2009/10/mika-7aef1e321cb7b8b6fe8397b01f0019cf55c038d3-s1100-c50.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 .audio-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  padding: 30px;
+}
+
+.track {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+h1 {
+  font-family: "Eczar", serif;
+  color: aliceblue;
 }

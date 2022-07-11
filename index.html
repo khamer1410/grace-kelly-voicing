@@ -5,28 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grace Kelly chorus voicing 🎵</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Eczar&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Mika - Grace Kelly voicing</h1>
     <button onclick="playAll();" type="button">PLAY</button>
     <button onclick="muteAll();" type="button">MUTE</button>
-    <section id="wrapper" class="audio-wrapper"></section>
+    <section id="audio-wrapper" class="audio-wrapper glass"></section>
   </body>
   <script>
     // create audio via js
-    const container = document.querySelector("#wrapper");
+    const container = document.querySelector("#audio-wrapper");
     let isPlaying = false;
+
     function createAudio(src) {
       const audio = document.createElement("audio");
       audio.src = src;
       audio.controls = true;
-      container.appendChild(audio);
+      audio.loop = true;
+      audio.muted = true;
+
+      return audio;
     }
 
-    createAudio("GraceKelly-test.mp3");
-    createAudio("GraceKelly-test.mp3");
-    // createAudio("./GraceKelly.mp3");
+    function createLabel(name) {
+      const label = document.createElement("span");
+      label.innerHTML = `${name}&nbsp;`;
+      return label;
+    }
+
+    function addTrack(src, label) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "track";
+
+      wrapper.appendChild(createLabel(label));
+      wrapper.appendChild(createAudio(src));
+
+      container.appendChild(wrapper);
+    }
+
+    addTrack("./assets/bas.mp3", "Bas");
+    addTrack("./assets/baritone.mp3", "Baritone");
+    addTrack("./assets/tenor-singleNote.mp3", "Tenor");
+    addTrack("./assets/alto.mp3", "Alto");
+    addTrack("./assets/mezo.mp3", "Mezzo");
+    addTrack("./assets/lead.mp3", "Lead");
+
     const audios = document.querySelectorAll("audio");
     // main button to play all tracks
     function playAll() {
