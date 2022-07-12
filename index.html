@@ -15,29 +15,48 @@
   </head>
   <body>
     <h1>Mika - Grace Kelly voicing</h1>
-    <button onclick="playAll();" type="button">PLAY</button>
-    <button onclick="muteAll();" type="button">MUTE</button>
+    <button class="button-three" onclick="playAll();" type="button">
+      PLAY
+    </button>
+    <button class="button-three" onclick="pauseAll();" type="button">
+      PAUSE
+    </button>
     <section id="audio-wrapper" class="audio-wrapper glass"></section>
   </body>
   <script>
     // create audio via js
     const container = document.querySelector("#audio-wrapper");
-    let isPlaying = false;
 
-    function createAudio(src) {
+    function createAudio(src, id) {
       const audio = document.createElement("audio");
       audio.src = src;
-      audio.controls = true;
+      audio.controls = false;
       audio.loop = true;
       audio.muted = true;
-
+      audio.id = id;
       return audio;
     }
 
+    function togglePlay(e) {
+      const id = e.currentTarget.dataset.id;
+      const selectedAudio = document.querySelector(`#${id}`);
+      const isMuted = selectedAudio.muted;
+      selectedAudio.muted = !isMuted;
+    }
+
     function createLabel(name) {
-      const label = document.createElement("span");
-      label.innerHTML = `${name}&nbsp;`;
-      return label;
+      const labelWrapper = document.createElement("div");
+
+      labelWrapper.innerHTML = `
+    <input data-id=${name} class="tgl tgl-flip" id=tgl-${name} type="checkbox" />
+      <label
+      class="tgl-btn"
+      data-tg-off="${name}-off"
+      data-tg-on=${name}
+      for=tgl-${name}
+    ></label>`;
+
+      return labelWrapper;
     }
 
     function addTrack(src, label) {
@@ -45,7 +64,7 @@
       wrapper.className = "track";
 
       wrapper.appendChild(createLabel(label));
-      wrapper.appendChild(createAudio(src));
+      wrapper.appendChild(createAudio(src, label));
 
       container.appendChild(wrapper);
     }
@@ -57,21 +76,23 @@
     addTrack("./assets/mezo.mp3", "Mezzo");
     addTrack("./assets/lead.mp3", "Lead");
 
+    document.querySelectorAll("input").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        togglePlay(e);
+      });
+    });
+
     const audios = document.querySelectorAll("audio");
     // main button to play all tracks
     function playAll() {
-      if (!isPlaying) {
-        isPlaying = true;
-        audios.forEach((audio) => audio.play());
-      } else {
-        isPlaying = false;
-        audios.forEach((audio) => audio.pause());
-      }
+      audios.forEach((audio) => audio.play());
     }
 
-    function muteAll() {
-      audios.forEach((audio) => (audio.muted = true));
+    function pauseAll() {
+      audios.forEach((audio) => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
     }
-    // each track has a mute button
   </script>
 </html>
