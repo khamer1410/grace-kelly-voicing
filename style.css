@@ -6,6 +6,7 @@ body {
   background-position: center;
   background-size: cover;
   min-height: 100vh;
+  font-family: "Eczar", serif;
 }
 
 .audio-wrapper {
@@ -32,6 +33,5 @@ body {
 }
 
 h1 {
-  font-family: "Eczar", serif;
   color: aliceblue;
 }
